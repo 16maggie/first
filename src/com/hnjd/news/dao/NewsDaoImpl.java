@@ -83,5 +83,34 @@ public class NewsDaoImpl extends BaseDao implements NewsDao {
 		// TODO 自动生成的方法存根
 		return 0;
 	}
+	@Override
+	public List<News> getNewsByCondition(News news) throws Exception {
+		String sql = "select * from news where "
+				+ "ntitle like concat('%', ? ,'%')  "
+				
+				+ "and nauthor like concat('%', ? ,'%') "
+				+ "and ntid = ? "
+				+ "and date(ncreateDate) = date(?) ";
+		ResultSet res = excuteQuery(sql , 
+				news.getNtitle(),
+				news.getNauthor(),
+				news.getNtid(),
+				new java.sql.Date(news.getNcreateDate().getTime()));
+		List<News> newsList = new ArrayList<News>();
+		while(res.next()) {
+			News newsObj = new News();
+			newsObj.setNid(res.getInt("nid"));
+			newsObj.setNtitle(res.getString("ntitle"));
+			newsObj.setNsummary(res.getString("nsummary"));
+			newsObj.setNpicPath(res.getString("npicPath"));
+			newsObj.setNcreateDate(res.getDate("ncreateDate"));
+			newsObj.setNmodifyDate(res.getDate("nmodifyDate"));
+			newsObj.setNcontent(res.getString("ncontent"));
+			newsObj.setNauthor(res.getString("nauthor"));
+			newsObj.setNtid(res.getInt("ntid"));
+			newsList.add(newsObj);
+		}
+		return newsList;
+	}
 
 }

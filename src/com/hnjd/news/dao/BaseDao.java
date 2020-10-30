@@ -43,7 +43,9 @@ public class BaseDao {
 		//3.向数据库传递附加参数
 		for(int i = 0 ; i < params.length ; i++) {
 			pst.setObject(i + 1, params[i]);
+			System.out.println(i+":"+ params[i]);
 		}
+		
 		//4.执行查询操作
 		ResultSet result = pst.executeQuery();
 		return result;

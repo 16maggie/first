@@ -14,6 +14,9 @@ public interface NewsDao {
 	//1.查看所有新闻
 	public List<News> getAllNews () throws Exception; 
 	
+	//根据条件查询新闻
+	public List<News> getNewsByCondition(News news) throws Exception; 
+	
 	//2.根据不同的新闻类型查看新闻
 	public List<News> getNewsByTopicId(int ntid);
 	
